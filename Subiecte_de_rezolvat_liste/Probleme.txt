@@ -1,0 +1,273 @@
+1-a problema
+type adresacelula = ^celula;
+celula = record
+numarFisa: integer;
+Nume: string;
+DataNasterii: string;
+GrupaSangvina:char;
+Diagnostic:string;
+urm : adresacelula;
+end;
+var p, u:adresacelula;
+f: TextFile;
+c:char;
+//p - primu
+//u - ult
+procedure citire;
+var R:adresacelula;
+begin
+  assign(f, 'intrare.txt');
+  reset(f);
+  while not EOF(f) do 
+    begin
+  new(r);
+  readln(f, R^.numarFisa);
+  readln(f, R^.Nume);
+  readln(f, R^.DataNasterii);
+  readln(f, R^.GrupaSangvina);
+  readln(f, R^.Diagnostic);
+  r^.urm := nil;
+  if p=nil then
+  begin
+    P:=r;
+    u:=r;
+  end else
+    begin
+      u^.urm := r;
+      u:=r;
+    end;
+    end;
+    close(f);
+end;
+
+procedure ultimu;
+var r:adresacelula;
+begin
+  if p = nil then writeln('coada e vida') else
+  begin
+    r:= u;
+     writeln('Numele=', R^.nume);
+        writeln('Diagnostic=', R^.diagnostic);
+    p:=p^.urm;
+  end;
+end;
+
+procedure extrag;
+var r:adresacelula;
+begin
+  if p=nil
+  then writeln('coada e vida') 
+  else begin
+    r:=p;
+     writeln('Numele=', R^.nume);
+      writeln('Data Nasterii=', R^.datanasterii);
+    p:=p^.urm;
+  end;
+end;
+
+procedure anul;
+var r:adresacelula;
+rez:integer;
+an:string;
+aux,aux1:string;
+i:integer;
+begin
+  writeln('dati anul');
+  readln(an);
+  if p = nil then writeln('coada este vida') else
+  begin
+    r:=p;
+    while R<> nil do
+    begin
+      aux1:=R^.datanasterii;
+      for i:= 7 to aux1.Length do
+        aux:= aux+aux1[i];
+       if an = aux then
+       begin
+         inc(rez);
+         aux:='';
+       end else
+         aux:='';
+      r:=r^.urm;
+    end;
+  end;
+  writeln('Nr in anul este=', rez);
+end;
+
+procedure nrPacienti;
+var r:adresacelula;
+rez:integer;
+solicit:char;
+begin
+  writeln('dati grupa dorita');
+  readln(solicit);
+  if p = nil then writeln('coada vida') else
+  begin
+    r:=p;
+    while R<> nil do
+    begin
+      if (R^.grupasangvina = solicit) then inc(rez);
+      r:=r^.urm;
+    end;
+  end;
+  writeln('Numarul de oameni cu grupa solicitata sunt=', rez);
+end;
+
+procedure afis;
+var r:adresacelula;
+begin
+  if p=nil then writeln('e vid')
+  else begin
+    writeln('coada include');
+    r:=p;
+    while R<>nil do
+    begin
+    writeln('Numarul fisei=', R^.numarFisa);
+    writeln('Numele=', R^.nume);
+    writeln('Data Nasterii=', R^.datanasterii);
+    writeln('Grupa Sangvina=', R^.GrupaSangvina);
+    writeln('Diagnostic=', R^.diagnostic);
+    writeln('----------');
+    r:=R^.urm
+    end;
+  end;
+  readln;
+end;
+
+begin
+  p:=nil;
+  u :=nil;
+  repeat
+    writeln('meniu:');
+    writeln('1 - Citirea cozii');
+    writeln('2 - Numele si data nasterii primului pacient: ');
+    writeln('3 - afisarea cozii la ecran');
+    writeln('4 - Numele si diagnosticul ultimului pacient');
+    writeln('5 - Numarul pacienti cu grupa solicitata');
+    writeln('O - oprirea programului');
+    writeln('Optiunea = ');
+    readln(c);
+    case c of
+      '1' : citire;
+      '2' : extrag;
+      '3' : afis;
+      '4': ultimu;
+      '5' : nrPacienti;
+      '6' : anul;
+      'O' : else writeln('optiune necunoscuta');
+    end;
+  until c='O' ;
+end.
+
+////////////////////////////////////////////////////////////////
+2-a problema 
+type adresacelula = ^celula;
+celula = record
+matricola: string;
+nume:string;
+prenume:string;
+ziua:integer;
+luna:integer;
+anul:integer;
+inaltimeCM:integer;
+next : adresacelula;
+end;
+Var
+	Sant1, sant2,x, p, u: adresacelula;
+	// p - primu, u - ultimu
+procedure adaug;
+var R: adresacelula;
+begin
+  new (r);
+  r:= sant2;
+  new(sant2);
+  writeln('Dati matricola');
+  readln(R^.matricola);
+  writeln('Dati numele');
+  readln(R^.nume);
+  writeln('Dati prenume');
+  readln(R^.prenume);
+  writeln('Dati ziua nasterii');
+  readln(R^.ziua);
+  writeln('Dati luna nasterii');
+  readln(R^.luna);
+  writeln('Dati anul nasterii');
+  readln(R^.anul);
+  writeln('Dati inaltimea in cm');
+  readln(R^.InaltimeCM);
+  r^.next := sant2;
+  if p = nil then
+  begin
+    p:= r;
+    u:=r;
+  end else
+    begin
+      u^.next := r;
+      u:=r;
+    end;
+end;
+
+procedure ultimu;
+var r:adresacelula;
+begin
+  if p = nil then writeln('caoda e vida') else
+  begin
+    r:=u;
+    writeln('numele=', r^.nume);
+    writeln('Virsta=', 2020-r^.anul);
+  end;
+end;
+
+function inaltimea():integer;
+var r:adresacelula;
+mic:integer;
+begin
+  mic := 40000;
+  x:= sant1^.next;
+  while x<>sant2 do
+  begin
+    if (mic > x^.inaltimeCM ) then
+      mic:=x^.inaltimeCM;
+      x:=x^.next
+  end;
+  write(mic);
+end;
+
+procedure nrSt;
+var r:adresacelula;
+nr:integer;
+solicit:integer;
+begin
+  writeln('dati anul solicitat');
+  readln(solicit);
+   x:= sant1^.next;
+  while x<>sant2 do
+  begin
+   if (x^.anul = solicit) then inc(nr);
+    x:=x^.next;
+  end;
+  writeln('Nr de studenti in anul solicitat=', nr);
+end;
+
+procedure primu;
+var r:adresacelula;
+begin
+  if p = nil then writeln('coada e vida') else
+  begin
+    r:=p;
+    writeln('Numele =', r^.nume);
+    writeln('data nasterii =', r^.ziua, '.' , r^.luna, '.', r^.anul);
+  end;
+end;
+begin
+  new(sant1);
+  new(sant2);
+  sant1^.next:= sant2;
+  for var i:= 1 to 2 do
+  adaug;
+ primu;
+ ultimu;
+ nrSt;
+ writeln('Inaltimea cea mai mica:');
+ inaltimea;
+end.
