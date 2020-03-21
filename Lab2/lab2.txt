@@ -1,0 +1,50 @@
+1)
+type adr = ^celula;
+celula = record 
+nr : real;
+next : adr;
+end;
+var first, last:adr;
+med:real;
+number:real;
+count:integer;
+procedure include(x:real);
+var r:adr;
+begin
+new(r);
+ r^.nr := x;
+ inc(count);
+  r^.next := first^.next;
+  first^.next := r;
+end;
+
+procedure afisare;
+var r:adr;
+begin
+  r:= first^.next;
+  while r<> last do
+  begin
+    writeln(r^.nr);
+    r:= r^.next;
+  end;
+end;
+
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  repeat
+    writeln('Dati numarul');
+    readln(number);
+    if (number <> 0) then
+      begin
+    include(number);
+     med:= med +number;
+     end;
+  until number = 0 ;
+  writeln('afisate invers');
+  afisare;
+  writeln('media=', med/(count));
+end.
+
+2)
