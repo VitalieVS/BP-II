@@ -1,0 +1,464 @@
+1)
+type adr = ^celula;
+celula = record 
+nr : real;
+next : adr;
+end;
+var first, last:adr;
+med:real;
+number:real;
+count:integer;
+procedure include(x:real);
+var r:adr;
+begin
+new(r);
+ r^.nr := x;
+ inc(count);
+  r^.next := first^.next;
+  first^.next := r;
+end;
+
+procedure afisare;
+var r:adr;
+begin
+  r:= first^.next;
+  while r<> last do
+  begin
+    writeln(r^.nr);
+    r:= r^.next;
+  end;
+end;
+
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  repeat
+    writeln('Dati numarul');
+    readln(number);
+    if (number <> 0) then
+      begin
+    include(number);
+     med:= med +number;
+     end;
+  until number = 0 ;
+  writeln('afisate invers');
+  afisare;
+  writeln('media=', med/(count));
+end.
+
+2)
+type adr = ^consumator;
+consumator = record
+name: string;
+age : integer;
+phone : string;
+next : adr;
+end;
+var first, last: adr;
+procedure includ;
+var r:adr;
+begin
+  new(R);
+  r:= last;
+  writeln('Dati consumatorul');
+  writeln('Numele');
+  readln(r^.name);
+  writeln('Virsta');
+  readln(R^.age);
+  writeln('Numarul de telefon');
+  readln(R^.phone);
+  new(last);
+  r^.next := last;
+end;
+
+procedure firstFive;
+var r:adr;
+counter:integer;
+begin
+  counter := 0;
+  r := first^.next;
+  while ((r <> last) and (counter < 5)) do
+  begin
+    writeln('Numele');
+  writeln(r^.name);
+  writeln('Virsta');
+  writeln(R^.age);
+  writeln('Numarul de telefon');
+  writeln(R^.phone);
+  inc(counter);
+  r:=R^.next;
+  end;
+end;
+
+
+procedure ageHigher;
+var r:adr;
+begin
+  r := first^.next;
+  while (r <> last) do
+  begin
+    if (R^.age > 20) then
+      begin
+    writeln('Numele');
+  writeln(r^.name);
+  writeln('Virsta');
+  writeln(R^.age);
+  writeln('Numarul de telefon');
+  writeln(R^.phone);
+  end;
+  r:=R^.next;
+  end;
+end;
+
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  for var i:= 1 to 6 do
+    includ;
+    writeln('///////////////');
+  firstFive;
+  writeln('/////////////////');
+  ageHigher;
+end.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5)
+type adr = ^number1;
+adr2 = ^number2;
+number1 = record
+number : integer;
+next : adr;
+end;
+number2 = record
+number : integer;
+next: adr2;
+end;
+var first, last: adr;
+first2, last2:adr2;
+flag, auxFlag:boolean;
+val, firstCount, secondCount:integer;
+procedure includFirst(x:integer);
+var r:adr;
+begin
+  new(R);
+  r:= last;
+  r^.number := x;
+  writeln('-----');
+  new(last);
+  r^.next := last;
+end;
+procedure includSecond(x:integer);
+var r:adr2;
+ nr:integer;
+begin
+  new(r);
+  r:= last2;
+  r^.number := x;
+  new(last2);
+  r^.next := last2;
+end;
+procedure firstAlgorithm;
+var r1: adr;
+r2: adr2;
+rez:integer;
+begin
+  flag:= false;
+  r1:= first^.next;
+  while (r1 <> last) do
+  begin
+    r2:= first2^.next;
+    while (r2 <> last2) do
+    begin
+      if (r1^.number = r2^.number ) then flag:= true;
+      r2:= r2^.next;
+       end;
+        if ((flag = false) and (auxFlag = false)) then
+        begin
+        inc(rez);
+        break;
+        end else flag:= false;
+      r1:= r1^.next;
+    end;
+    case rez of
+      1 : writeln('sunt diferiti');
+      0 : writeln('sunt identici');
+    end;
+end;
+procedure secondAlgorithm;
+var r1: adr;
+r2: adr2;
+rez:integer;
+begin
+  flag:= false;
+  r2:= first2^.next;
+  while (r2 <> last2) do
+  begin
+    r1:= first^.next;
+    while (r1 <> last) do
+    begin
+      if (r1^.number = r2^.number ) then flag:= true;
+      r1:= r1^.next;
+       end;
+        if ((flag = false) and (auxFlag = false)) then
+        begin
+        inc(rez);
+        break;
+        end else flag:= false;
+      r2:= r2^.next;
+    end;
+    case rez of
+      1 : writeln('sunt diferiti');
+      0 : writeln('sunt identici');
+    end;
+end;
+
+begin
+  new(first);
+  new(last);
+  new(first2);
+  new(last2);
+  first2^.next := last2;
+  first^.next := last;
+  repeat
+     writeln('Dati numarul din prima lista');
+     readln(val);
+     if val <> 0 then 
+       begin
+     includFirst(val);
+     inc(firstCount);
+     end;
+  until val = 0;
+  repeat
+     writeln('Dati numarul din a doua lista');
+     readln(val);
+     if val <> 0 then 
+       begin
+     includSecond(val);
+     inc(secondCount);
+     end; 
+  until val = 0;
+ if (firstCount < secondCount) then
+   secondAlgorithm 
+   else firstAlgorithm;
+end.
+
+6)
+type adr = ^celula;
+celula = record
+name : string;
+phone: string;
+next : adr;
+end;
+var first, last:adr;
+cer:string;
+
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  r:=last;
+  writeln('Dati numele');
+  readln(R^.name);
+  writeln('Dati nr de telefon');
+  readln(R^.phone);
+  new(last);
+  R^.next := last;
+end;
+
+procedure prelucrare(s:string);
+var r,q:adr;
+begin
+  r:= first^.next;
+  while r <> last do
+  begin
+    if R^.name = s then
+    begin
+      q:= r^.next;
+      r^ := q^;
+      if q = last then last:= r;
+      dispose(q);
+    end;
+    r:= r^.next;
+  end;
+end;
+
+procedure afis;
+var r:adr;
+begin
+  r:= first^.next;
+  while r<> last do
+  begin
+   writeln(R^.name);
+   writeln(R^.phone);
+   r:= r^.next;
+    end;
+  end;
+
+
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  for var i:=1 to 2 do
+    includ;
+    writeln('dati numele dorit de a sterge');
+    readln(cer);
+    prelucrare(cer);
+    afis;
+end.
+
+7)
+type adr = ^celula;
+celula = record
+x1: integer;
+y1: integer;
+x2:integer;
+y2:integer;
+next : adr;
+end;
+var first, last:adr;
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  r:=last;
+  writeln('Dati x1');
+  readln(R^.x1);
+  writeln('Dati x2');
+  readln(R^.x2);
+  writeln('Dati y1');
+  readln(R^.y1);
+  writeln('Dati y2');
+  readln(R^.y2);
+  new(last);
+  R^.next := last;
+end;
+procedure prelucrare;
+var r,q:adr;
+rez:real;
+max:real;
+x1max,x2max,y1max,y2max:integer;
+begin
+  max := 0;
+  r:= first^.next;
+  while r <> last do
+  begin
+    rez := sqrt(sqr(R^.x2-R^.x1) + sqr(R^.y2-R^.y1));
+    if max < rez then
+      begin
+       max:= rez;
+       x1max:= r^.x1;
+       x2max:= r^.x2;
+       y1max:= r^.y1;
+       y2max:= r^.y2;
+       end;
+       r:= r^.next;
+    end;
+  writeln('Punctele ce formeaza segmente de lungime maximala sunt:');
+  writeln('x1=', x1max);
+  writeln('x2=', x2max);
+  writeln('y1=', y1max);
+  writeln('y2=', y2max);
+  end;
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  for var i:=1 to 2 do
+    includ;
+   prelucrare;
+end.
+
+8)
+type adr = ^celula;
+arii = ^covor;
+celula = record
+lungime: integer;
+latime:integer;
+next : adr;
+end;
+covor = record
+aria:real;
+next: arii;
+end;
+var first, last:adr;
+first1, last1:arii;
+procedure includCovor;
+var r:adr;
+begin
+  new(r);
+  r:=last;
+  writeln('dati lungimea');
+  readln(R^.lungime);
+  writeln('Dati latimea');
+  readln(R^.latime);
+  new(last);
+  R^.next := last;
+end;
+procedure prelucrare;
+var r:adr;
+r1:arii;
+begin
+  r:=first^.next;
+  while r<> last do
+  begin
+    new(r1);
+    r1:=last1;
+    r1^.aria := 2*(R^.lungime+R^.latime);
+    new(last1);
+    r1^.next := last1;
+    r:=R^.next;
+  end;
+end;
+procedure afisarearii;
+var r:arii;
+begin
+r:= first1^.next;
+while r<> last1 do
+begin
+  writeln('aria covorului');
+  writeln(R^.aria);
+  r:=R^.next;
+  end;
+end;
+begin
+  new(first);
+  new(last);
+  new(first1);
+  new(last1);
+  first1^.next := last1;
+  first^.next := last;
+  for var i:=1 to 2 do
+    includCovor;
+    prelucrare;
+    afisarearii;
+end.
