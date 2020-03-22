@@ -397,3 +397,206 @@ begin
     includ;
    prelucrare;
 end.
+
+8)
+type adr = ^celula;
+arii = ^covor;
+celula = record
+lungime: integer;
+latime:integer;
+next : adr;
+end;
+covor = record
+aria:real;
+next: arii;
+end;
+var first, last:adr;
+first1, last1:arii;
+procedure includCovor;
+var r:adr;
+begin
+  new(r);
+  r:=last;
+  writeln('dati lungimea');
+  readln(R^.lungime);
+  writeln('Dati latimea');
+  readln(R^.latime);
+  new(last);
+  R^.next := last;
+end;
+procedure prelucrare;
+var r:adr;
+r1:arii;
+begin
+  r:=first^.next;
+  while r<> last do
+  begin
+    new(r1);
+    r1:=last1;
+    r1^.aria := (R^.lungime*R^.latime);
+    new(last1);
+    r1^.next := last1;
+    r:=R^.next;
+  end;
+end;
+procedure afisarearii;
+var r:arii;
+begin
+r:= first1^.next;
+while r<> last1 do
+begin
+  writeln('aria covorului');
+  writeln(R^.aria);
+  r:=R^.next;
+  end;
+end;
+begin
+  new(first);
+  new(last);
+  new(first1);
+  new(last1);
+  first1^.next := last1;
+  first^.next := last;
+  for var i:=1 to 2 do
+    includCovor;
+    prelucrare;
+    afisarearii;
+end.
+
+9) 
+type adr = ^celula;
+celula = record
+ID: integer;
+Den:string;
+autor:string;
+year:integer;
+nr:integer;
+next : adr;
+end;
+var first, last:adr;
+var s:string;
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  r:=last;
+  writeln('dati numarul cartii');
+  readln(R^.id);
+  writeln('Dati denumirea');
+  readln(R^.den);
+  writeln('dati autorul cartii');
+  readln(R^.autor);
+  writeln('Dati anul cartii');
+  readln(R^.year);
+   writeln('Dati numarul de exemplare');
+  readln(R^.nr);
+  new(last);
+  R^.next := last;
+end;
+
+procedure prelucrare(solicit:string);
+var r:adr;
+flag:boolean;
+begin
+  flag:=false;
+  r:=first^.next;
+  while r<> last do
+  begin
+    if (R^.den = solicit) then
+      flag := true;
+   
+    r:=R^.next;
+  end;
+  if flag then writeln('exista') else writeln('nu exista');
+end;
+
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  for var i:=1 to 2 do
+    includ;
+    writeln('Dati denumirea cartii cerute');
+    readln(s);
+    prelucrare(s);
+end.
+
+12)
+type
+  passengers = ^passenger;
+    passenger = record
+      name: string;
+      direction: string;
+      date: record
+        day:  integer;
+        month: integer;
+        year: integer;
+      end;
+      next: passengers;
+    end;
+    
+var
+  passers: passengers;
+  passersFile: text;
+  day, month, year: integer;
+  
+procedure createList;
+var pass: passengers;
+begin
+  Assign(passersFile, 'passersFile.txt');
+  Reset(passersFile);
+  while not eof (passersFile) do
+    begin
+      new(pass);
+      Readln(passersFile, pass^.name);
+      Readln(passersFile, pass^.direction);
+      Readln(passersFile, pass^.date.day);
+      Readln(passersFile, pass^.date.month);
+      Readln(passersFile, pass^.date.year);
+      pass^.next := passers;
+      passers := pass;
+    end;
+end;  
+  
+procedure showList;
+var pass: passengers;
+begin
+  pass := passers;
+  while (pass <> nil) do
+    begin
+      write(pass^.name + ' ');
+      write(pass^.direction + ' ');
+      write(pass^.date.day + '/');
+      write(pass^.date.month + '/');
+      writeln(pass^.date.year);
+      pass := pass^.next;
+    end;
+end;  
+  
+procedure countLeavers(day: integer; month: integer; year: integer);
+var pass: passengers;
+    count: integer;
+begin
+  count := 0;
+  pass := passers;
+  while (pass <> nil) do
+    begin
+      if ((pass^.date.day = day) AND (pass^.date.month = month) AND(pass^.date.year = year)) then
+        inc(count);
+      pass := pass^.next;
+    end;
+    writeln('Numarul de pasageri ' + day + '/' + month + '/' + year + ' este ' + count + ' pasageri');
+end;  
+  
+begin
+  createList;
+  showList;
+  write('Dati data ');
+  readln(day);
+  write('Dati luna ');
+  readln(month);
+  write('Dati anul ');
+  readln(year);
+  countLeavers(day, month, year);
+end.
+
