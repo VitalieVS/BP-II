@@ -270,3 +270,130 @@ begin
    secondAlgorithm 
    else firstAlgorithm;
 end.
+
+6)
+type adr = ^celula;
+celula = record
+name : string;
+phone: string;
+next : adr;
+end;
+var first, last:adr;
+cer:string;
+
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  r:=last;
+  writeln('Dati numele');
+  readln(R^.name);
+  writeln('Dati nr de telefon');
+  readln(R^.phone);
+  new(last);
+  R^.next := last;
+end;
+
+procedure prelucrare(s:string);
+var r,q:adr;
+begin
+  r:= first^.next;
+  while r <> last do
+  begin
+    if R^.name = s then
+    begin
+      q:= r^.next;
+      r^ := q^;
+      if q = last then last:= r;
+      dispose(q);
+    end;
+    r:= r^.next;
+  end;
+end;
+
+procedure afis;
+var r:adr;
+begin
+  r:= first^.next;
+  while r<> last do
+  begin
+   writeln(R^.name);
+   writeln(R^.phone);
+   r:= r^.next;
+    end;
+  end;
+
+
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  for var i:=1 to 2 do
+    includ;
+    writeln('dati numele dorit de a sterge');
+    readln(cer);
+    prelucrare(cer);
+    afis;
+end.
+
+7)
+type adr = ^celula;
+celula = record
+x1: integer;
+y1: integer;
+x2:integer;
+y2:integer;
+next : adr;
+end;
+var first, last:adr;
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  r:=last;
+  writeln('Dati x1');
+  readln(R^.x1);
+  writeln('Dati x2');
+  readln(R^.x2);
+  writeln('Dati y1');
+  readln(R^.y1);
+  writeln('Dati y2');
+  readln(R^.y2);
+  new(last);
+  R^.next := last;
+end;
+procedure prelucrare;
+var r,q:adr;
+rez:real;
+max:real;
+x1max,x2max,y1max,y2max:integer;
+begin
+  max := 0;
+  r:= first^.next;
+  while r <> last do
+  begin
+    rez := sqrt(sqr(R^.x2-R^.x1) + sqr(R^.y2-R^.y1));
+    if max < rez then
+      begin
+       max:= rez;
+       x1max:= r^.x1;
+       x2max:= r^.x2;
+       y1max:= r^.y1;
+       y2max:= r^.y2;
+       end;
+       r:= r^.next;
+    end;
+  writeln('Punctele ce formeaza segmente de lungime maximala sunt:');
+  writeln('x1=', x1max);
+  writeln('x2=', x2max);
+  writeln('y1=', y1max);
+  writeln('y2=', y2max);
+  end;
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  for var i:=1 to 2 do
+    includ;
+   prelucrare;
+end.
