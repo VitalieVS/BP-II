@@ -1,0 +1,67 @@
+type adr = ^celula;
+celula = record
+s:string;
+flag:boolean;
+next: adr;
+end;
+
+var stiva:adr;
+
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  writeln('Dati sirul');
+  readln(R^.s);
+  r^.next := stiva;
+  stiva := r;
+end;
+
+procedure prelucrare;
+var r:adr;
+count:integer;
+openCount:integer;
+closedCount:integer;
+begin
+  if stiva <> nil then
+    r:= stiva;
+    while r<>nil do
+    begin
+      r^.flag:=false;
+      for var i:= 1 to length(R^.s) do
+        begin
+        if R^.s[i] in ['[', '{', '('] then 
+          inc(openCount);
+         if R^.s[i] in [']', '}', ')'] then 
+          inc(closedCount);
+          end;
+          if openCount=closedCount then
+            r^.flag := true;
+         openCount := 0;
+            closedCount:= 0;
+     r:= r^.next;
+end;
+end;
+
+procedure afisare;
+var r:adr;
+begin
+  if stiva<> nil then
+    r:=stiva;
+    while r<> nil do
+    begin
+      if r^.flag then 
+      begin
+        writeln('In sirul', R^.s, ' toate parantezele sunt inchise');
+      end;
+      r:=R^.next;
+    end;
+end;
+
+begin
+  stiva := nil;
+  for var i:=1 to 3 do includ;
+  prelucrare;
+  afisare;
+
+end.
