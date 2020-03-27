@@ -1,0 +1,185 @@
+7) am luat x1,x2,y1,y2 pentru a putea folosi formula de distanta dintre 2 segmente.
+type adr = ^plan_coord;
+plan_coord = record
+x1:integer;
+y1:integer;
+x2:integer;
+y2:integer;
+next: adr;
+end;
+var stiva:adr;
+
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  writeln('Dati x1');
+  readln(R^.x1);
+  writeln('Dati x2');
+  readln(R^.x2);
+  writeln('Dati y1');
+  readln(R^.y1);
+   writeln('Dati y2');
+  readln(R^.y2);
+  r^.next := stiva;
+  stiva := r;
+end;
+
+procedure prelucrare;
+var r:adr;
+rez:real;
+max:real;
+x1max,x2max,y1max,y2max:integer;
+begin
+  max := 0;
+  if stiva <> nil then
+    r:= stiva^;
+    while r<>nil do
+    begin
+      rez := sqrt(sqr(R^.x2 - R^.x1) + sqr(R^.y2-R^.y1));
+      if max < rez then
+      begin
+       max := rez;
+       x1max:= r^.x1;
+       x2max:= r^.x2;
+       y1max:= r^.y1;
+       y2max:= r^.y2;
+      end;
+      r:= r^.next;
+    end;
+    writeln('Punctele ce formeaza segmente de lungime maximala sunt:');
+  writeln('x1=', x1max);
+  writeln('x2=', x2max);
+  writeln('y1=', y1max);
+  writeln('y2=', y2max);
+end;
+
+begin
+  stiva := nil;
+  for var i:=1 to 3 do includ;
+  prelucrare;
+end.
+
+8)
+type adr = ^covor;
+newList = ^lista;
+covor = record
+lung:integer;
+lat:integer;
+next: adr;
+end;
+lista = record
+aria:real;
+next: newList;
+end;
+
+var stiva:adr;
+listaAria: newList;
+
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  writeln('Dati lungimea');
+  readln(R^.lung);
+  writeln('Dati latimea');
+  readln(R^.lat);
+  r^.next := stiva;
+  stiva := r;
+end;
+
+procedure listanoua(arie:real);
+var r:newList;
+begin
+  new(r);
+  r^.aria := arie;
+  r^.next := listaAria;
+  listaAria := r;
+end;
+
+procedure prelucrare;
+var r:adr;
+arie:real;
+begin
+  if stiva <> nil then
+    r:= stiva;
+    while r<>nil do
+    begin
+      listanoua(R^.lung*R^.lat);
+     r:= r^.next;
+      end;
+end;
+
+procedure afisareArii;
+var x:newList;
+begin
+    x:=listaAria;
+    while x<>nil do
+    begin
+      writeln('aria=', x^.aria);
+      x:=x^.next;
+    end;
+  end;
+
+begin
+  stiva := nil;
+  listaAria:=nil;
+  for var i:=1 to 3 do includ;
+  prelucrare;
+  afisareArii;
+end.
+
+9)
+type adr = ^carti;
+carti = record
+nr:integer;
+den:string;
+autor:string;
+an:integer;
+nrExempl:integer;
+next:adr;
+end;
+var stiva:adr;
+s:string;
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  writeln('dati numarul cartii');
+  readln(R^.nr);
+  writeln('Dati denumirea cartii');
+  readln(R^.den);
+  writeln('Dati numele autorului');
+  readln(R^.autor);
+  writeln('Dati anul editiei');
+  readln(R^.an);
+  writeln('Dati nr de exemplare');
+  readln(R^.nrExempl);
+  r^.next := stiva;
+  stiva:= r;
+end;
+
+procedure prelucrare(request:string);
+var R:adr;
+flag:boolean;
+begin
+  flag:=true;
+  if stiva<> nil then
+    r:=stiva;
+    while R<> nil do
+    begin
+      if R^.den = request then
+        flag:=true;
+        r:= R^.next;
+    end;
+    if flag then writeln('exista') else writeln('nu exista');
+end;
+
+begin
+  stiva := nil;
+  for var i:= 1 to 2 do includ;
+  writeln('Dati cartea ce trebuie cautata');
+  readlN(s);
+  prelucrare(s);
+end.
+

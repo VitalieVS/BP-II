@@ -1,0 +1,155 @@
+prin stiva:
+type adr = ^student;
+student = record
+numeprenume:string;
+data:integer;
+luna:integer;
+an:integer;
+localitate:string;
+media:real;
+next:adr;
+end;
+var stiva:adr;
+s:string;
+key:integer;
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  writeln('dati nume si prenume');
+  readln(R^.numeprenume);
+  writeln('Dati data nasterii');
+  readln(R^.data);
+   writeln('Dati luna nasterii');
+  readln(R^.luna);
+   writeln('Dati an nasterii');
+  readln(R^.an);
+  writeln('dati localitatea');
+  readln(R^.localitate);
+  writeln('Dati media');
+  readln(R^.media);
+  r^.next := stiva;
+  stiva := r;
+end;
+
+procedure prelucrare(request:string);
+var r:adr;
+count:integer;
+flag:boolean;
+min:integer;
+begin
+  flag:=false;
+  if  stiva<> nil then
+    r:= stiva;
+    min := 99;
+    while R<>nil do
+    begin
+      if (R^.localitate = request) then
+       flag:= true;
+       if (R^.media = 10 ) then inc(count);
+       if (2020-R^.an < min) then min:=r^.an;
+        r:=R^.next;
+    end;
+    writeln('Nr de persoanele cu media 10=', count);
+    writeln('Cea mai tinara persoana este', min);
+    if flag then writeln('exista persoana din localitate') else writeln('nu');
+end;
+begin
+  stiva:=nil;
+  repeat
+    includ;
+    writeln('Doriti sa includeti ceva?');
+    readln(key);
+   until key = 0;
+  writeln('dati localitate');
+  readln(s);
+  prelucrare(s);
+end.
+
+
+prin coada:
+
+type adr = ^student;
+student = record
+numeprenume:string;
+data:integer;
+luna:integer;
+an:integer;
+localitate:string;
+media:real;
+next:adr;
+end;
+var prim, ultim:adr;
+s:string;
+key:integer;
+procedure includ;
+var r:adr;
+begin 
+  if prim = nil then
+  begin
+    new(prim);
+    writeln('dati nume si prenume');
+  readln(prim^.numeprenume);
+  writeln('Dati data nasterii');
+  readln(prim^.data);
+   writeln('Dati luna nasterii');
+  readln(prim^.luna);
+   writeln('Dati an nasterii');
+  readln(prim^.an);
+  writeln('dati localitatea');
+  readln(prim^.localitate);
+  writeln('Dati media');
+  readln(prim^.media);
+  end else
+    begin
+       new(r);
+  writeln('dati nume si prenume');
+  readln(R^.numeprenume);
+  writeln('Dati data nasterii');
+  readln(R^.data);
+   writeln('Dati luna nasterii');
+  readln(R^.luna);
+   writeln('Dati an nasterii');
+  readln(R^.an);
+  writeln('dati localitatea');
+  readln(R^.localitate);
+  writeln('Dati media');
+  readln(R^.media);
+  r^.next := nil;
+  ultim^.next := r;
+  ultim:=r;
+    end;
+  
+end;
+
+procedure prelucrare(request:string);
+var r:adr;
+count:integer;
+flag:boolean;
+min:integer;
+begin
+  flag:=false;
+    r:= prim;
+    min := 99;
+    while R<>nil do
+    begin
+      if (R^.localitate = request) then
+       flag:= true;
+       if (R^.media = 10 ) then inc(count);
+       if (2020-R^.an < min) then min:=r^.an;
+        r:=R^.next;
+    end;
+    writeln('Nr de persoanele cu media 10=', count);
+    writeln('Cea mai tinara persoana este', min);
+    if flag then writeln('exista persoana din localitate') else writeln('nu');
+end;
+begin
+  repeat
+    includ;
+    writeln('Doriti sa includeti ceva?');
+    readln(key);
+   until key = 0;
+  writeln('dati localitate');
+  readln(s);
+  prelucrare(s);
+end.
