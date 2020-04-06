@@ -1,0 +1,41 @@
+type adr = ^celula;
+celula = record
+nr : integer;
+next: adr;
+end;
+var sant1,sant2: adr;
+suma,max:integer;
+procedure add;
+var R:adr;
+begin
+  r:=sant1;
+  writeln('dati numarul');
+  readln(R^.nr);
+  new(sant1);
+  sant1^.next:= r;
+end;
+procedure travers;
+var r:adr;
+begin
+ max := -99999;
+  r:= sant1^.next;
+  writeln('lista');
+  while r<> sant2  do
+  begin
+    writeln(r^.nr);
+    if ( R^.nr > max ) then
+      max:= r^.nr;
+      suma:=suma+r^.nr;
+      r:=R^.next;
+  end;
+  writeln('Max:', max);
+  writeln('Suma:', suma);
+end;
+begin
+  new(sant1);
+  new(sant2);
+  sant1^.next := sant2;
+  for var  i:= 1 to 3 do 
+    add;
+    travers;
+end.
