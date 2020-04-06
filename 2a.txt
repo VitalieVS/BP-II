@@ -1,0 +1,49 @@
+type adr = ^celula;
+celula = record
+nr : integer;
+next: adr;
+end;
+var sant1,sant2: adr;
+procedure add;
+var R:adr;
+begin
+  r:=sant2;
+  writeln('dati numarul');
+  readln(R^.nr);
+  new(sant2);
+  r^.next := sant2;
+end;
+function prim(nr:integer):boolean;
+var index:integer;
+rez:boolean;
+begin
+  rez:=true;
+  for index:= 2 to nr div 2 do
+  begin
+    if nr mod index = 0 then rez := false
+  end;
+  prim:=rez;
+end;
+procedure travers;
+var r:adr;
+count:integer;
+begin
+  r:= sant1^.next;
+  writeln('Lista:');
+  while r<> sant2  do
+  begin
+    writeln(r^.nr);
+    if (prim(R^.nr)) then inc(count);
+      r:=R^.next;
+  end;
+  writeln('Numarul de numere prime:', count);
+end;
+
+begin
+  new(sant1);
+  new(sant2);
+  sant1^.next := sant2;
+  for var  i:= 1 to 3 do 
+    add;
+    travers;
+end.
