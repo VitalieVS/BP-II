@@ -1,0 +1,52 @@
+type adr = ^celula;
+celula = record
+nr:integer;
+next:adr;
+end;
+var sant1,sant2:adr;
+cifr:integer;
+procedure add(n:integer);
+var r:adr;
+f1,f2, b:integer;
+begin
+  f1 := 1;
+  f2 := 2;
+  new(r);
+   R^.nr := f1;
+   R^.next := sant1^.next;
+    sant1^.next := r;
+   new(r);
+   R^.nr := f2;
+   R^.next := sant1^.next;
+    sant1^.next := r;
+    for var i:=3 to n do
+       begin
+         new(r);
+        r^.nr := f1+f2;
+        b := f1;
+        f1 := f2;
+        f2 := b + f1;
+         R^.next := sant1^.next;
+    sant1^.next := r;
+    end;
+end;
+procedure afis;
+var r:adr;
+begin
+  r:=sant1^.next;
+  while r<> sant2 do
+  begin
+    writeln(R^.nr);
+    r:=R^.next;
+  end;
+end;
+begin
+  new(sant1);
+  new(sant2);
+  sant1^.next := sant2;
+  writeln('dati n');
+  readln(cifr);
+  add(cifr);
+  afis;
+  
+end.
