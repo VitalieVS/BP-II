@@ -123,10 +123,60 @@ begin
   ageHigher;
 end.
 
+3)
+type adr = ^celula;
+celula = record 
+x:integer;
+y:integer;
+next : adr;
+end;
+var first, last:adr;
+a,b,r:integer;
+aria:real;
+procedure include;
+var r:adr;
+begin
+new(r);
+  writeln('dati x=');
+  readln(R^.x);
+  writeln('Dati y=');
+  readln(R^.y);
+  r^.next := first^.next;
+  first^.next := r;
+end;
 
+procedure afisare;
+var r:adr;
+begin
+  r:= first^.next;
+  while r<> last do
+  begin
+    if (R^.x <= aria) and (R^.y <= aria) then
+    begin
+      writeln('Punctele x='  , R^.x, ' si y= ', R^.y, ' se afla in interiorul cercului');
+    end;
+    r:= r^.next;
+  end;
+end;
 
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  writeln('Dati coordonatele cercului');
+  writeln('a=');
+  readln(a);
+  writeln('b=');
+  readln(b);
+  writeln('dati raza');
+  readln(r);
+  aria:=3.14*sqr(r);
+  for var i:= 1 to 3 do
+    include;
 
+  afisare;
 
+end.
 
 
 
@@ -600,3 +650,62 @@ begin
   countLeavers(day, month, year);
 end.
 
+14)
+type adr = ^celula;
+celula = record 
+nume:string;
+ziua:integer;
+luna:integer;
+an:integer;
+next : adr;
+end;
+var first, last:adr;
+min:integer;
+procedure include;
+var r:adr;
+begin
+new(r);
+ writeln('dati numele persoanei');
+ readln(r^.nume);
+ writeln('Dati data zilei de nastere');
+ readln(R^.ziua);
+ writeln('Dati luna nasterii');
+ readln(R^.luna);
+ writeln('Dati anul de nastere');
+ readln(R^.an);
+  r^.next := first^.next;
+  first^.next := r;
+end;
+procedure parc;
+var r:adr;
+begin
+  r:= first^.next;
+  while r<> last do
+  begin
+    writeln(min);
+    if (2020-r^.an) < min  then min := r^.an;
+    r:= r^.next;
+  end;
+end;
+procedure afisare;
+var r:adr;
+begin
+  writeln('Numele persoanelor cu virsta minimala');
+  r:= first^.next;
+  while r<> last do
+  begin
+    if R^.an = min then
+      writeln(r^.nume);
+    r:= r^.next;
+  end;
+end;
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  min:=333;
+  for var i:= 1 to 2 do
+    include;
+  parc;
+  afisare;
+end.
