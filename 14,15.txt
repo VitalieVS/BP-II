@@ -1,0 +1,153 @@
+15 )
+type adr = ^celula;
+celula = record
+name : string;
+destinatie: string;
+data:integer;
+luna:integer;
+anul:integer;
+next : adr;
+end;
+var first, last:adr;
+cer:string;
+nr:integer;
+data12:integer;
+ 
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  r:=last;
+  writeln('Dati numele');
+  readln(R^.name);
+  writeln('Destinatia');
+  readln(R^.destinatie);
+  writeln('Dati data');
+  readln(R^.data);
+  writeln('Dati luna');
+  readln(R^.luna);
+  writeln('Dati anul');
+  readln(R^.anul);
+  new(last);
+  R^.next := last;
+end;
+ 
+procedure prelucrare(s:string);
+var r,q:adr;
+begin
+  r:= first^.next;
+  while r <> last do
+  begin
+    if R^.name = s then
+    begin
+      q:= r^.next;
+      r^ := q^;
+      if q = last then last:= r;
+      dispose(q);
+    end;
+    r:= r^.next;
+  end;
+end;
+ 
+procedure prelucrareData(dataG:integer);
+var r,q:adr;
+begin
+  r:= first^.next;
+  while r <> last do
+  begin
+    if (r^.data = dataG) then
+      inc(nr);
+   
+     r:= r^.next;
+    end;
+    writeln('Nr pasageri dupa data plecarii', nr);
+  end;
+ 
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  for var i:=1 to 2 do
+    includ;
+    writeln('dati numele dorit de a sterge');
+    readln(cer);
+    writeln('Dati data dorita');
+    readln(data12);
+    prelucrareData(data12);
+    prelucrare(cer);
+end.
+
+14)
+type adr = ^celula;
+celula = record
+name : string;
+grupa:string;
+media:real;
+next : adr;
+end;
+var first, last:adr;
+cer:real;
+nr:integer;
+c1,c2:char;
+ 
+procedure includ;
+var r:adr;
+begin
+  new(r);
+  r:=last;
+  writeln('Dati numele');
+  readln(R^.name);
+  writeln('grupa');
+  readln(R^.grupa);
+  writeln('Dati media');
+  readln(R^.media);
+  new(last);
+  R^.next := last;
+end;
+ 
+procedure prelucrare(cer:real);
+var r,q:adr;
+flag:boolean;
+begin
+  r:= first^.next;
+  while r <> last do
+  begin
+   if (r^.media = cer) then
+     flag:=true;
+    r:= r^.next;
+  end;
+  if flag then writeln('Sunt');
+end;
+ 
+procedure afisare(l1:char; l2:char);
+var r,q:adr;
+begin
+  r:= first^.next;
+  while r <> last do
+  begin
+  if (R^.name[1] > l1) and (R^.name[1] < l2) then
+  begin
+    writeln(R^.name);
+    writeln(R^.grupa);
+    writeln(R^.media);
+    end;
+      r:= r^.next;
+  end;
+  end;
+ 
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  for var i:=1 to 2 do
+    includ;
+    writeln('Dati media dorita');
+    readln(cer);
+    prelucrare(cer);
+    writeln('Dati intervalul');
+    readln(c1);
+    writeln('2lea');
+    readln(C2);
+    afisare(c1,c2);
+   
+end.
