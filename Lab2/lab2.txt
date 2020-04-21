@@ -709,3 +709,92 @@ begin
   parc;
   afisare;
 end.
+
+
+17) 
+type adr = ^celula;
+celula = record 
+nume:string;
+medie:real;
+adresa:string;
+virsta:integer;
+next : adr;
+end;
+
+var first, last:adr;
+p1:integer;
+procedure include;
+var r:adr;
+begin
+new(r);
+ writeln('Dati nume');
+ readln(R^.nume);
+ writeln('Dati medie');
+ readln(R^.medie);
+ writeln('Dati adresa');
+ readln(R^.adresa);
+ writeln('Dati virsta');
+ readln(R^.virsta);
+  r^.next := first^.next;
+  first^.next := r;
+end;
+
+procedure afisare(poz:integer);
+var r:adr;
+count:integer;
+begin
+  r:= first^.next;
+  while r<> last do
+  begin
+    if (count <= poz) then 
+      begin
+    r:= r^.next;
+    inc(count);
+    end;
+    if (count = poz) then
+    begin
+       writeln('Dati nume');
+       writeln(R^.nume);
+       writeln('Dati medie');
+       writeln(R^.medie);
+       writeln('Dati adresa');
+       writeln(R^.adresa);
+       writeln('Dati virsta');
+       writeln(R^.virsta);
+       break;
+    end;
+  end;
+end;
+
+procedure info;
+var r:adr;
+name:string;
+begin
+  writeln('Dati numele dorit');
+  readln(name);
+  r:= first^.next;
+  while r<> last do
+  begin
+   if (R^.nume = name) then 
+   begin
+       writeln('medie');
+       writeln(R^.medie);
+       writeln('adresa');
+       writeln(R^.adresa);
+       writeln('virsta');
+       writeln(R^.virsta);
+   
+    end;
+     r:= r^.next;
+  end;
+  end;
+
+begin
+  new(first);
+  new(last);
+  first^.next := last;
+  for  var i:= 1 to 5 do include;
+  writeln('Dati pozitia dorita de a se afisa');
+  afisare(p1);
+ 
+end.
