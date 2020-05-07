@@ -1,0 +1,88 @@
+type adr = ^celula;
+adr2 = ^celula2;
+celula = record
+cifra : integer;
+next: adr;
+end;
+celula2 = record
+cifra:integer;
+next: adr2;
+end;
+
+var santFirst,santSecond: adr;
+sant1,sant2:adr2;
+n1,n2:longint;
+aux:integer;
+
+procedure addFirst(nr:integer);
+var R2:adr2;
+begin
+  r2:=sant1;
+  R2^.cifra := nr;
+  new(sant1);
+  sant1^.next := r2;
+end;
+
+procedure addSecond(nr:integer);
+var R:adr;
+begin
+  r:=santFirst;
+  R^.cifra := nr;
+  new(santFirst);
+  santFirst^.next := r;
+end;
+
+procedure traversFirst;
+var r:adr2;
+begin
+  r:= sant1^.next;
+  while r<> sant2  do
+  begin
+      write(R^.cifra);
+      r:=R^.next;
+  end;
+end;
+
+procedure traversSecond;
+var r:adr;
+begin
+  r:= santFirst^.next;
+  while r<> santSecond  do
+  begin
+      write(R^.cifra);
+      r:=R^.next;
+  end;
+end;
+
+begin
+  new(sant1);
+  new(sant2);
+  new(santFirst);
+  new(santSecond);
+  sant1^.next := sant2;
+  santFirst^.next:=santSecond;
+  assign(input, 'input.txt');
+  reset(input);
+  readln(input, n1);
+  readln(input, n2);
+  close(input);
+  writeln('Suma=', n1+n2);
+  writeln('Diferenta=', n1/n2);
+  writeln('Produsul=', n1*n2);
+  if n1>n2 then writeln(n1, ' Mai mare') else writeln(n2, ' Mai mare');
+  repeat
+    aux := n1 mod 10;
+    addFirst(aux);
+    n1 := n1 div 10;
+  until n1 = 0;
+  
+   repeat
+    aux := n2 mod 10;
+    addSecond(aux);
+    n2 := n2 div 10;
+  until n2 = 0;
+  traversFirst;
+  writeln;
+  traversSecond
+
+end.

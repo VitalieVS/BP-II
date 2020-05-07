@@ -1,0 +1,107 @@
+type adr = ^celula;
+celula = record
+cifr  integer;
+next adr;
+end;
+var 
+sant1,sant2,q,padr;
+countinteger;
+xinteger;
+key integer;
+function checkPalindrom(sstring)boolean;
+var finteger;
+begin
+   f = 0;
+    for var i = 1 to length(s) div 2 do
+        if s[i]  s[length(s)-i+1] then begin
+            writeln('Nu e palindrom');
+            f = 1;
+            break
+        end;
+   if f = 0 then checkPalindrom=true;
+end;
+procedure add(valinteger);
+var Radr;
+begin
+  r=sant2;
+  R^.cifr = val;
+  new(sant2);
+  r^.next =sant2;
+end;
+procedure game;
+var radr;
+countinteger;
+nrinteger;
+countForXinteger;
+eliminteger;
+begin
+  writeln('Dati numarul X de la care se va numara');
+  readln(nr);
+  r= sant1^.next;
+  while r sant2  do
+  begin
+      inc(countForX);
+      if (countForX = nr) then break;
+      r=R^.next;
+  end;
+   r= sant1^.next;
+  while r sant2  do
+  begin
+     inc(count);
+      r=R^.next;
+  end;
+    r= sant1^.next;
+  repeat
+    writeln('Copilul ', nr, ' Numeste pe cine elimina');
+    elim = random(10);
+    writeln('Copilul a ales ', elim, ' caut pe cine elimin...' );
+     r= sant1^.next;
+       while r sant2  do
+        begin
+      if (R^.cifr = elim) then
+      begin
+        writeln('Am gasit copilul ce trebuie eliminat ');
+        q= R^.next;
+        r^ = Q^;
+        if q = sant2 then
+          sant2 = p;
+         dispose(q);
+         writeln('Am eliminat ');
+         dec(count);
+      end;
+      r=R^.next;
+  end    
+  until (count = 1);
+end;
+procedure lastRemain;
+var radr;
+begin
+  writeln('Copilul ramas');
+    r= sant1^.next;
+  while r sant2  do
+  begin
+    writeln(R^.cifr);
+      r=R^.next;
+  end;
+end;
+begin
+  new(sant1);
+  new(sant2);
+  sant1^.next = sant2;
+  key = 1;
+  while (key  0) do
+  begin
+    writeln('Doriti sa adaugati un copil in lista');
+    writeln('1 = Da, 0 = nu' );
+    readln(key);
+    if key  0 then
+    begin
+      writeln('cifra=');
+      readln(x);
+      add(x);
+      inc(count);
+    end else break;
+  end;
+  game;
+  lastRemain;
+end.

@@ -1,0 +1,107 @@
+12 ) 
+type adr = ^celula;
+celula = record
+numar:string;
+marca:string;
+culoarea:string;
+locuri:integer;
+putere:integer;
+carburant:string;
+next: adr;
+end;
+var prim, ultim:adr;
+key:integer;
+flag:boolean;
+
+procedure intrare;
+var r:adr;
+begin
+  if prim = nil then
+  begin
+    new(prim);
+  writeln('Dati numarul de inamtriculare');
+  readln(prim^.numar);
+  writeln('marca=');
+  readln(prim^.marca);
+  writeln('culoare');
+  readln(prim^.culoarea);
+  writeln('locuri');
+  readln(prim^.locuri);
+  writeln('nr de cai putere');
+  readln(prim^.putere);
+  writeln('Tipul carburantului');
+  readln(prim^.carburant);
+  prim^.next:= nil;
+  ultim:=prim;
+  end else
+    begin
+       new(r);
+  writeln('Dati numarul de inamtriculare');
+  readln(R^.numar);
+  writeln('marca=');
+  readln(R^.marca);
+  writeln('culoare');
+  readln(R^.culoarea);
+  writeln('locuri');
+  readln(R^.locuri);
+  writeln('nr de cai putere');
+  readln(R^.putere);
+  writeln('Tipul carburantului');
+  readln(R^.carburant);
+  r^.next := nil;
+  ultim^.next := r;
+  ultim:= r;
+    end;
+end;
+
+procedure iesire;
+var r:adr;
+begin
+  if prim <> nil then
+  begin
+    r:= prim;
+    prim:= Prim^.next;
+    dispose(r);
+  end else writeln('Vid');
+end;
+
+procedure listare;
+var r:adr;
+begin
+  r:= prim;
+  while r <> nil do
+  begin
+     writeln('Dati numarul de inamtriculare');
+  writeln(R^.numar);
+  writeln('marca=');
+  writeln(R^.marca);
+  writeln('culoare');
+  writeln(R^.culoarea);
+  writeln('locuri');
+  writeln(R^.locuri);
+  writeln('nr de cai putere');
+  writeln(R^.putere);
+  writeln('Tipul carburantului');
+  writeln(R^.carburant);
+  R:=R^.next;
+  end;
+end;
+
+begin
+  flag:=true;
+  
+  while (flag) do begin
+    writeln('1. Adauga masina');
+    writeln('2. Scoate masina');
+    writeln('3. Listeaza masinile');
+    writeln('0. Iesi');
+    readln(key);
+    case key of
+      1: intrare;
+      2: iesire;
+      3: listare;
+      0: break;
+    end;
+    end;
+end.
+
